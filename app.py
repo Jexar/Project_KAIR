@@ -50,7 +50,7 @@ def doctor_app():
             st.write(f"Age: {age} years")
             
             # Display weight
-            st.write(f"Weight: {weight} kg")
+            st.write(f"Weight: {weight} lbs")
 
             # Display current medications
             if 'CurrentMedications' in person:
@@ -66,9 +66,9 @@ def doctor_app():
                 st.write("Current medications information not available.")
 
             # Allow updating weight
-            new_weight = st.number_input("Update weight (kg):", min_value=0.0, max_value=500.0, step=0.1, value=float(weight))
+            new_weight = st.number_input("Update weight (kg):", min_value=0.0, max_value=5000.0, step=0.1, value=float(weight))
             if new_weight != weight:
-                st.write(f"Updated weight: {new_weight} kg")
+                st.write(f"Updated weight: {new_weight} lbs")
                 # In a real application, you would update the database here
         else:
             st.write("Person not found in the database.")
@@ -113,7 +113,7 @@ def recommend_dosage(selected_drugs, age, weight):
        # Simple dosage adjustment based on age and weight
        if age > 65:
            adjusted_dosage = base_dosage * 0.8
-       elif weight < 50:
+       elif weight < 90:
            adjusted_dosage = base_dosage * 0.9
        else:
            adjusted_dosage = base_dosage
