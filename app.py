@@ -1,30 +1,29 @@
 import streamlit as st
 import pandas as pd
 import datetime
+from welcome_page import show_welcome_page
 
+# Set page config at the very beginning
+st.set_page_config(page_title="Clinical Decision Support System", layout="wide", initial_sidebar_state="collapsed")
 
 # Load mock data (in a real scenario, this would come from an API or database)
 @st.cache_data
 def load_drug_data():
    return pd.read_csv("drug_data.csv")
 
-
 @st.cache_data
 def load_data():
    return pd.read_csv('patient_info.csv')
-
 
 @st.cache_data
 def load_interaction_data():
    return pd.read_csv("interaction_data.csv")
 
-
 df = load_data()
 drug_data = load_drug_data()
 interaction_data = load_interaction_data()
 
-
-def main():
+def main_app():
     st.title("Clinical Decision Support System")
 
     # Patient Information
@@ -87,9 +86,6 @@ def main():
         else:
             st.warning("Please enter valid patient information before checking interactions and dosage.")
 
-
-
-
 def check_interactions(selected_drugs):
    st.subheader("Drug Interactions")
    interactions = []
@@ -104,7 +100,6 @@ def check_interactions(selected_drugs):
            st.warning(interaction)
    else:
        st.success("No known interactions found.")
-
 
 def recommend_dosage(selected_drugs, age, weight):
    st.subheader("Dosage Recommendations")
@@ -124,22 +119,12 @@ def recommend_dosage(selected_drugs, age, weight):
 
 def app():
     if 'page' not in st.session_state:
-        st.session_state.page = "login"
+        st.session_state.page = "welcome"
 
-    if st.session_state.page == "login":
-        show_login_page()
+    if st.session_state.page == "welcome":
+        show_welcome_page()
     elif st.session_state.page == "main":
-        if 'token' in st.session_state:
-            main_app()
-        else:
-            st.error("You need to log in first.")
-            st.session_state.page = "login"
-            st.experimental_rerun()
+        main_app()
 
 if __name__ == "__main__":
-   main()
-
-
-
-
-
+   app()
