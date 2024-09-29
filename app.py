@@ -66,7 +66,7 @@ def doctor_app():
                 st.write("Current medications information not available.")
 
             # Allow updating weight
-            new_weight = st.number_input("Update weight (kg):", min_value=0.0, max_value=5000.0, step=0.1, value=float(weight))
+            new_weight = st.number_input("Update weight (lbs):", min_value=0.0, max_value=5000.0, step=0.1, value=float(weight))
             if new_weight != weight:
                 st.write(f"Updated weight: {new_weight} lbs")
                 # In a real application, you would update the database here
