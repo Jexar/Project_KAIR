@@ -1,3 +1,11 @@
 drug1,drug2,interaction
 Aspirin,Ibuprofen,Increased risk of bleeding
 Lisinopril,Ibuprofen,May decrease the effectiveness of Lisinopril
+Warfarin,Amoxicillin,Increased risk of bleeding
+Metformin,Alcohol,Increased risk of lactic acidosis
+Simvastatin,Grapefruit,Increased risk of side effects
+Clopidogrel,Omeprazole,Reduced effectiveness of Clopidogrel
+Levothyroxine,Calcium,Reduced absorption of Levothyroxine
+Digoxin,Verapamil,Increased risk of digoxin toxicity
+Fluoxetine,Tramadol,Increased risk of serotonin syndrome
+Atorvastatin,Gemfibrozil,Increased risk of muscle damage
