@@ -140,7 +140,7 @@ def patient_app():
             age = today.year - dob.year - ((today.month, today.day) < (dob.month, dob.day))
             st.write(f"Age: {age} years")
             
-            st.write(f"Weight: {weight} kg")
+            st.write(f"Weight: {weight} lbs")
 
             if 'CurrentMedications' in person:
                 current_medications_str = person['CurrentMedications']
