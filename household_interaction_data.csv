@@ -1,0 +1,11 @@
+drug,item,interaction
+Aspirin(500mg),Alcohol,Increased risk of stomach bleeding
+Ibuprofen(400mg),Alcohol,Increased risk of stomach bleeding
+Lisinopril(10mg),Grapefruit,May increase the effects of Lisinopril
+Warfarin(5mg),Leafy greens,May decrease the effectiveness of Warfarin
+Metformin(500mg),Alcohol,Increased risk of lactic acidosis
+Levothyroxine(100mg),Coffee,May interfere with Levothyroxine absorption
+Simvastatin(20mg),Grapefruit,Increased risk of side effects
+Ciprofloxacin,Dairy products,Reduced absorption of Ciprofloxacin
+Tetracycline,Dairy products,Reduced absorption of Tetracycline
+Fluoxetine(20mg),Alcohol,Increased drowsiness and dizziness

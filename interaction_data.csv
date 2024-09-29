@@ -1,11 +1,30 @@
 drug1,drug2,interaction
-Aspirin,Ibuprofen,Increased risk of bleeding
-Lisinopril,Ibuprofen,May decrease the effectiveness of Lisinopril
-Warfarin,Amoxicillin,Increased risk of bleeding
-Metformin,Alcohol,Increased risk of lactic acidosis
-Simvastatin,Grapefruit,Increased risk of side effects
-Clopidogrel,Omeprazole,Reduced effectiveness of Clopidogrel
-Levothyroxine,Calcium,Reduced absorption of Levothyroxine
-Digoxin,Verapamil,Increased risk of digoxin toxicity
-Fluoxetine,Tramadol,Increased risk of serotonin syndrome
-Atorvastatin,Gemfibrozil,Increased risk of muscle damage
+Aspirin(500mg),Ibuprofen(400mg),Increased risk of bleeding
+Ibuprofen(400mg),Aspirin(500mg),Increased risk of bleeding
+Lisinopril(10mg),Ibuprofen(400mg),May decrease the effectiveness of Lisinopril
+Warfarin(5mg),Amoxicillin(500mg),Increased risk of bleeding
+Metformin(500mg),Alcohol,Increased risk of lactic acidosis
+Simvastatin(20mg),Grapefruit,Increased risk of side effects
+Clopidogrel(75mg),Omeprazole(20mg),Reduced effectiveness of Clopidogrel
+Levothyroxine(100mg),Calcium,Reduced absorption of Levothyroxine
+Digoxin(0.25mg),Verapamil,Increased risk of digoxin toxicity
+Fluoxetine(20mg),Tramadol(50mg),Increased risk of serotonin syndrome
+Atorvastatin(20mg),Gemfibrozil,Increased risk of muscle damage
+Paracetamol(1000mg),Alcohol,Increased risk of liver damage
+Amoxicillin(500mg),Probenecid,Increased amoxicillin levels and potential toxicity
+Losartan(50mg),Potassium supplements,Increased risk of hyperkalemia
+Amlodipine(5mg),Simvastatin(20mg),Increased risk of muscle pain and damage
+Hydrochlorothiazide(25mg),Lithium,Increased lithium levels and toxicity
+Gabapentin(300mg),Morphine,Increased risk of respiratory depression
+Sertraline(50mg),Aspirin(500mg),Increased risk of bleeding
+Montelukast(10mg),Rifampin,Decreased effectiveness of Montelukast
+Pantoprazole(40mg),Iron supplements,Reduced absorption of iron
+Prednisone(10mg),Warfarin(5mg),Increased risk of bleeding
+Tramadol(50mg),Carbamazepine,Reduced pain-relieving effect of Tramadol
+Warfarin(5mg),Vitamin K,Decreased effectiveness of Warfarin
+Digoxin(0.25mg),Spironolactone,Increased risk of digoxin toxicity
+Fluoxetine(20mg),MAOIs,Increased risk of serotonin syndrome
+Grapefruit,Atorvastatin(20mg),Increased risk of muscle damage
+Gemfibrozil,Repaglinide,Increased risk of low blood sugar
+Calcium,Ciprofloxacin,Reduced absorption of Ciprofloxacin
+Alcohol,Disulfiram,Severe physical reaction (nausea vomiting flushing)
