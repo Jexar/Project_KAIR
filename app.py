@@ -3,27 +3,30 @@ import pandas as pd
 import datetime
 from welcome_page import show_welcome_page
 
-# Set page config at the very beginning
 st.set_page_config(page_title="Clinical Decision Support System", layout="wide", initial_sidebar_state="collapsed")
 
-# Load mock data (in a real scenario, this would come from an API or database)
 @st.cache_data
 def load_drug_data():
    return pd.read_csv("drug_data.csv")
 
 @st.cache_data
-def load_data():
+def load_patient_data():
    return pd.read_csv('patient_info.csv')
 
 @st.cache_data
 def load_interaction_data():
    return pd.read_csv("interaction_data.csv")
 
-df = load_data()
+@st.cache_data
+def load_household_interaction_data():
+   return pd.read_csv("household_interaction_data.csv")
+
+df = load_patient_data()
 drug_data = load_drug_data()
 interaction_data = load_interaction_data()
+household_interaction_data = load_household_interaction_data()
 
-def main_app():
+def doctor_app():
     st.title("Clinical Decision Support System")
 
     # Patient Information
@@ -47,7 +50,7 @@ def main_app():
             st.write(f"Age: {age} years")
             
             # Display weight
-            st.write(f"Weight: {weight} kg")
+            st.write(f"Weight: {weight} lbs")
 
             # Display current medications
             if 'CurrentMedications' in person:
@@ -63,9 +66,9 @@ def main_app():
                 st.write("Current medications information not available.")
 
             # Allow updating weight
-            new_weight = st.number_input("Update weight (kg):", min_value=0.0, max_value=500.0, step=0.1, value=float(weight))
+            new_weight = st.number_input("Update weight (kg):", min_value=0.0, max_value=5000.0, step=0.1, value=float(weight))
             if new_weight != weight:
-                st.write(f"Updated weight: {new_weight} kg")
+                st.write(f"Updated weight: {new_weight} lbs")
                 # In a real application, you would update the database here
         else:
             st.write("Person not found in the database.")
@@ -110,16 +113,78 @@ def recommend_dosage(selected_drugs, age, weight):
        # Simple dosage adjustment based on age and weight
        if age > 65:
            adjusted_dosage = base_dosage * 0.8
-       elif weight < 50:
+       elif weight < 90:
            adjusted_dosage = base_dosage * 0.9
        else:
            adjusted_dosage = base_dosage
       
        st.info(f"{drug}: Recommended dosage is {adjusted_dosage:.2f} mg")
 
+def patient_app():
+    st.title("Clinical Decision Support System - Patient View")
+    
+    # Patient Information
+    st.header("Your Information")
+    name = st.text_input("Enter your name:")
+    
+    if name:
+        person = df[df['Name'].str.lower() == name.lower()]
+        if not person.empty:
+            person = person.iloc[0]
+            dob = pd.to_datetime(person['DateOfBirth'])
+            weight = person['Weight']
+
+            st.write(f"Date of Birth: {dob.strftime('%B %d, %Y')}")
+            
+            today = datetime.date.today()
+            age = today.year - dob.year - ((today.month, today.day) < (dob.month, dob.day))
+            st.write(f"Age: {age} years")
+            
+            st.write(f"Weight: {weight} kg")
+
+            if 'CurrentMedications' in person:
+                current_medications_str = person['CurrentMedications']
+                st.write("Your Current Medications:")
+                if pd.notna(current_medications_str) and current_medications_str != '':
+                    current_medications = [med.strip() for med in current_medications_str.split(',')]
+                    for med in current_medications:
+                        st.write(f"- {med}")
+                else:
+                    st.write("No current medications recorded.")
+            else:
+                st.write("Current medications information not available.")
+
+            # Household Item Interactions
+            st.header("Household Item Interactions")
+            household_items = household_interaction_data['item'].unique().tolist()
+            selected_items = st.multiselect("Select household items you commonly use:", household_items)
+
+            if selected_items:
+                st.subheader("Potential Interactions:")
+                for med in current_medications:
+                    for item in selected_items:
+                        interaction = household_interaction_data[
+                            (household_interaction_data['drug'] == med) & 
+                            (household_interaction_data['item'] == item)
+                        ]
+                        if not interaction.empty:
+                            st.warning(f"{med} - {item}: {interaction['interaction'].values[0]}")
+            else:
+                st.info("Select household items to check for potential interactions with your medications.")
+        else:
+            st.write("Person not found in the database.")
+
+def main_app():
+    if st.session_state.user_role == "doctor":
+        doctor_app()
+    elif st.session_state.user_role == "patient":
+        patient_app()
+
 def app():
     if 'page' not in st.session_state:
         st.session_state.page = "welcome"
+    if 'user_role' not in st.session_state:
+        st.session_state.user_role = None
 
     if st.session_state.page == "welcome":
         show_welcome_page()

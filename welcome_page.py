@@ -9,7 +9,6 @@ def load_lottie_url(url: str):
     return r.json()
 
 def show_welcome_page():
-    # Custom CSS
     st.markdown("""
     <style>
     .main {
@@ -31,20 +30,27 @@ def show_welcome_page():
     </style>
     """, unsafe_allow_html=True)
 
-    # Welcome message
-    st.markdown('<p class="welcome-text">Welcome, Doctor!</p>', unsafe_allow_html=True)
-    st.markdown('<p class="sub-text">Your Clinical Decision Support System awaits.</p>', unsafe_allow_html=True)
+    st.markdown('<p class="welcome-text">Welcome to the Clinical Decision Support System</p>', unsafe_allow_html=True)
+    st.markdown('<p class="sub-text">Please select your role:</p>', unsafe_allow_html=True)
 
-    # Load and display a medical-themed Lottie animation
-    lottie_url = "https://assets5.lottiefiles.com/packages/lf20_5njp3vgg.json"  # A medical-themed animation
+    lottie_url = "https://assets5.lottiefiles.com/packages/lf20_5njp3vgg.json"
     lottie_json = load_lottie_url(lottie_url)
     if lottie_json:
-        st_lottie(lottie_json, height=400, key="medical_animation")
+        st_lottie(lottie_json, height=300, key="medical_animation")
 
-    # Add a button to proceed to the main application
-    if st.button("Enter Clinical Decision Support System", key="enter_app"):
-        st.session_state.page = "main"
-        st.rerun()
+    col1, col2 = st.columns(2)
+
+    with col1:
+        if st.button("I'm a Doctor", key="doctor_button"):
+            st.session_state.user_role = "doctor"
+            st.session_state.page = "main"
+            st.rerun()
+
+    with col2:
+        if st.button("I'm a Patient", key="patient_button"):
+            st.session_state.user_role = "patient"
+            st.session_state.page = "main"
+            st.rerun()
 
 if __name__ == "__main__":
     show_welcome_page()
